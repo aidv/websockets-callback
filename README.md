@@ -8,3 +8,5 @@ This is simplifies your code A LOT if you do many websocket calls and/or do a lo
 
 Data flow:
 client -> request (data + uid) -> server -> processing -> response (data + uid) -> client
+
+License: MIT
