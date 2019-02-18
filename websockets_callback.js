@@ -18,20 +18,26 @@ class websockets_callback{
 
         this.ws.onmessage = function (event) {
             var json = JSON.parse(event.data);
-            if (json.puid != undefined)
+            if (json.puid != undefined){
+                
                 if (t.onResponseList[json.puid] != undefined){
-                    t.onResponseList[json.puid](json);
-                    delete t.onResponseList[json.puid];
+                    if (json.progress == undefined || json.progress == 100){
+                        t.onResponseList[json.puid].onResponse(json);
+                        delete t.onResponseList[json.puid];
+                    } else {
+                        t.onResponseList[json.puid].onProgress(json);
+                    }
                 }
+            }
         }
     }
 
-    send(packet, onResponse = null){
+    send(packet, onResponse = null, onProgress = null){
         if (packet == undefined) return;
 
         if (onResponse != undefined){
             var puid = Date.now();
-            this.onResponseList[puid] = onResponse;
+            this.onResponseList[puid] = {onResponse: onResponse, onProgress: onProgress};
             packet.puid = puid;
         }
         this.ws.send(JSON.stringify(packet));

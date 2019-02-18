@@ -39,6 +39,18 @@ function processMsg(ws_msg){
         }, json.delay);
         break;
 
+        case 'progress':
+        var progress = -1;
+        var progressTimer = setInterval(() => {
+            progress++;
+            if (progress >= 100){
+                progress = 100;
+                clearInterval(progressTimer);
+            }
+            wsSend({progress: progress}, json.puid);
+        }, 10);
+        break;
+
         default:
             break;
     }

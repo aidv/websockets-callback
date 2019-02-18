@@ -10,6 +10,12 @@
         <button onclick="onSendClick()">Send delayed callback</button>
         <br>
         <br>
+        <button onclick="onTestProgressClick()">Test progress</button>
+        <br>
+        <progress id="progressBar" value="0" max="100"></progress>
+        <br>
+        <br>
+
         <div>
             Server Response:
             <div id="ws_response"></div>
@@ -18,7 +24,7 @@
         <script>
             var wsc = new websockets_callback(
                 {
-                    address: '192.168.0.103',
+                    address: '192.168.1.5',
                     onOpen: function(){
                         console.log('Connected to websocket server!')
                     }
@@ -32,6 +38,21 @@
                 wsc.send({cmd: 'waitFor', delay: milliseconds},
                     function(response){
                         document.getElementById("ws_response").innerHTML = response.msg;
+                    }
+                )
+            }
+
+            function onTestProgressClick(){
+                var milliseconds = document.getElementById("callbackDelay").value;
+
+                //magic starts here
+                wsc.send({cmd: 'progress'},
+                    function(response){
+                        document.getElementById("ws_response").innerHTML = 'Progress test completed!';
+                    },
+
+                    function(response){
+                        document.getElementById("progressBar").value = response.progress;
                     }
                 )
             }
