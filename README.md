@@ -1,5 +1,45 @@
 # websockets-callback
-WebSocket messages with callbacks
+WebSocket messages with callbacks.
+
+### Coding fashion
+Firstly, it's important to understand that the file ```js wscb.js``` inside the folder ```js ./lib``` is cross compatible with both NodeJS and the browser (in my case Chrome).
+
+To create an expectation (*1*) you call the ```js on()``` function and pass an object, and then you pass the response handler, the progress handler and the connection to send to.
+
+It's also important to note that the connection parameter is only used in NodeJS.
+Why is that? Because in NodeJS you're most likely to run a server (although you can create a client too) and so when you want to send an expectation or a responseless message to a client, you also need to define who you're sending it to. Thus the connection parameter has to be defined upon calling the ```js send()``` function.
+
+The progress handler is only called when the key ```js progress``` exists in the response message.
+
+(*1*) An "expectation" is a message that expects a response. If no response is received, the expectation will wait forever.
+
+
+
+#### Creating a trigger (cross compatible)
+A trigger is triggered when a specified message is received.
+Once the trigger shoots and you've handled the message, you can respond to the message by calling ```js respondWith()```
+
+```js
+wscb.on('human',
+    function(msg, respondWith){
+        respondWith({human: 'homosapien'});
+    }
+);
+```
+
+#### Sending an expectaion
+```js
+wscb.send(
+    {key: 'value', greeting: 'hello world!'},
+     function(response){
+        
+    },
+    function(response){
+        console.log(response.progress + '% done');
+    },
+    conn
+);
+```
 
 ### To install from npm:
 ```
@@ -172,7 +212,7 @@ You can access the underlying WebSocket onConnect/onMessage/onError events by pa
 ```js
 const WebSockets_Callback = require('wscb');
 var wscb = new WebSockets_Callback({
-    onConnection: function(conn){
+    onOpen: function(conn){
 
     },
 
@@ -184,7 +224,6 @@ var wscb = new WebSockets_Callback({
 
     }
 });
-
 ```
 
-Star this repository on github, please. Thank you
+Star this repository on github, please. Thank you.
