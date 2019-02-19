@@ -2,7 +2,7 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <title>Websockets Callback Demo</title>
-        <script type="text/javascript" src="websockets_callback.js"></script>
+        <script type="text/javascript" src="wscb.js"></script>
     </head>
     <body>
         <input id="callbackDelay" type="number" value="3000">milliseconds
@@ -22,7 +22,7 @@
         </div>
 
         <script>
-            var wsc = new websockets_callback(
+            var wscb = new WebSockets_Callback(
                 {
                     address: '192.168.1.5',
                     onOpen: function(){
@@ -35,7 +35,7 @@
                 var milliseconds = document.getElementById("callbackDelay").value;
 
                 //magic starts here
-                wsc.send({cmd: 'waitFor', delay: milliseconds},
+                wscb.send({cmd: 'waitFor', delay: milliseconds},
                     function(response){
                         document.getElementById("ws_response").innerHTML = response.msg;
                     }
@@ -43,10 +43,8 @@
             }
 
             function onTestProgressClick(){
-                var milliseconds = document.getElementById("callbackDelay").value;
-
                 //magic starts here
-                wsc.send({cmd: 'progress'},
+                wscb.send({cmd: 'progress'},
                     function(response){
                         document.getElementById("ws_response").innerHTML = 'Progress test completed!';
                     },
@@ -55,6 +53,39 @@
                         document.getElementById("progressBar").value = response.progress;
                     }
                 )
+            }
+
+
+            //create a few expectations
+            wscb.on('hello from server :)', function(msg, respondWith){
+                document.getElementById("ws_response").innerHTML = 'Server said: ' + JSON.stringify(msg);
+                    
+                console.log('Server said:')
+                console.log(msg)
+                respondWith({msg: 'hi from server :D'});
+            })
+
+            wscb.on('waitFor', function(msg, respondWith){
+                setTimeout(() => {
+                    respondWith({msg: 'Delayed for ' + msg.delay + ' ms'});
+                }, msg.delay);
+                
+            })
+
+            wscb.on('progress', function(msg, respondWith){
+                var progress = -1;
+                var progressTimer = setInterval(() => {
+                    progress++;
+                    if (progress >= 100){
+                        progress = 100;
+                        clearInterval(progressTimer);
+                    }
+                    respondWith({progress: progress});
+                }, 10);
+            })
+
+            wscb.options.onUnexpectedMessage = function(conn, msg){
+                console.log('Client sent a responseless message: ' + msg)
             }
         </script>
     </body>
