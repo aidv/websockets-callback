@@ -1,12 +1,62 @@
-Client and server code that allows you to make WebSocket calls with callbacks.
+# websockets-callback
+WebSocket messages with callbacks
 
-Each call is assigned a unique ID that is used by the server once it has processed the call.
+### To install from npm repository:
+```
+npm i wscb
+```
 
-Once the server has processed the client message it returns a response with the unique call ID that the client can use to execute the appropriate callback.
+### Sample NodeJS code compatible with the web demo:
+```js
+const WebSockets_Callback = require('wscb');
+var wscb = new WebSockets_Callback();
+//var wscb = new WebSockets_Callback({port: 1234});
 
-This simplifies your code A LOT if you do many websocket calls and/or do a lot of server-side processing.
+wscb.on('hello from client :)', function(msg, respondWith){
+    console.log('Client said:')
+    console.log(msg)
+    respondWith({msg: 'hi from server :D'});
+})
 
-Data flow:
-client -> request (data + uid) -> server -> processing -> response (data + uid) -> client
+wscb.on('waitFor', function(msg, respondWith){
+    setTimeout(() => {
+        respondWith({msg: 'Delayed for ' + msg.delay + ' ms'});
+    }, msg.delay);
+    
+})
 
-License: MIT
+wscb.on('progress', function(msg, respondWith){
+    var progress = -1;
+    var progressTimer = setInterval(() => {
+        progress++;
+        if (progress >= 100){
+            progress = 100;
+            clearInterval(progressTimer);
+        }
+        respondWith({progress: progress});
+    }, 10);
+})
+```
+
+### Additional Information
+
+You can access the underlying WebSocket onConnect/onMessage/onError events by passing functions during construction:
+```js
+const WebSockets_Callback = require('wscb');
+var wscb = new WebSockets_Callback({
+    onConnection: function(conn){
+
+    },
+
+    onError: function(conn, error){
+        //This will 
+    },
+
+    onListening: function(){
+
+    }
+});
+
+```
+
+Star this repository on github, please. Thank you

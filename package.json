@@ -1,0 +1,29 @@
+{
+  "name": "wscb",
+  "version": "0.3.1",
+  "description": "WebSockets with message callbacks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aidv/websockets-callback.git"
+  },
+  "keywords": [
+    "websocket",
+    "callback",
+    "network"
+  ],
+  "author": "Aid Vllasaliu",
+  "browser": "browser.js",
+  
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aidv/websockets-callback/issues"
+  },
+  "homepage": "https://github.com/aidv/websockets-callback#readme",
+  "devDependencies": {
+    "ws": "6.1.4"
+  }
+}
