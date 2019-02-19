@@ -2,14 +2,14 @@
 WebSocket messages with callbacks.
 
 ### Coding fashion
-Firstly, it's important to understand that the file ```js wscb.js``` inside the folder ```js ./lib``` is cross compatible with both NodeJS and the browser (in my case Chrome).
+Firstly, it's important to understand that the file ```wscb.js``` inside the folder ```./lib``` is cross compatible with both NodeJS and the browser (in my case Chrome).
 
-To create an expectation (*1*) you call the ```js on()``` function and pass an object, and then you pass the response handler, the progress handler and the connection to send to.
+To create an expectation (*1*) you call the ```on()``` function and pass an object, and then you pass the response handler, the progress handler and the connection to send to.
 
 It's also important to note that the connection parameter is only used in NodeJS.
-Why is that? Because in NodeJS you're most likely to run a server (although you can create a client too) and so when you want to send an expectation or a responseless message to a client, you also need to define who you're sending it to. Thus the connection parameter has to be defined upon calling the ```js send()``` function.
+Why is that? Because in NodeJS you're most likely to run a server (although you can create a client too) and so when you want to send an expectation or a responseless message to a client, you also need to define who you're sending it to. Thus the connection parameter has to be defined upon calling the ```send()``` function.
 
-The progress handler is only called when the key ```js progress``` exists in the response message.
+The progress handler is only called when the key ```progress``` exists in the response message.
 
 (*1*) An "expectation" is a message that expects a response. If no response is received, the expectation will wait forever.
 
@@ -17,7 +17,7 @@ The progress handler is only called when the key ```js progress``` exists in the
 
 #### Creating a trigger (cross compatible)
 A trigger is triggered when a specified message is received.
-Once the trigger shoots and you've handled the message, you can respond to the message by calling ```js respondWith()```
+Once the trigger shoots and you've handled the message, you can respond to the message by calling ```respondWith()```
 
 ```js
 wscb.on('human',
@@ -28,6 +28,7 @@ wscb.on('human',
 ```
 
 #### Sending an expectaion
+
 ```js
 wscb.send(
     {key: 'value', greeting: 'hello world!'},
@@ -37,7 +38,7 @@ wscb.send(
     function(response){
         console.log(response.progress + '% done');
     },
-    conn
+    conn //set to undefined or ignore if sending from the browser
 );
 ```
 
