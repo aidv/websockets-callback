@@ -1,5 +1,6 @@
 # websockets-callback
 WebSocket messages with callbacks.
+There's a C++ port of this library called [WebSockets-Callback.CPP](https://github.com/aidv/WebSockets-Callback.CPP)
 
 ### Coding fashion
 Firstly, it's important to understand that the file ```wscb.js``` inside the folder ```./lib``` is cross compatible with both NodeJS and the browser (in my case Chrome).
