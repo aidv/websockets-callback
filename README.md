@@ -45,7 +45,7 @@ wscb.on('human',
 ```js
 wscb.send(
     {key: 'value', greeting: 'hello world!'},
-     function(response){
+    function(response){
         
     },
     function(response){
@@ -60,10 +60,28 @@ wscb.send(
 npm i wscb
 ```
 
+### Options:
+```js
+var options = {
+    verbose: false, //will log some messages to the console
+    asClient: false, //will setup WSCB as a client. Browser incompatible.
+    address: '127.0.0.1',
+    port: 8081,
+    onOpen: undefined,
+    onError: undefined,
+    onListening: undefined,
+    onUnexpectedMessage: undefined
+}
+```
+
 ### NodeJS sample code:
 ```js
 const WebSockets_Callback = require('wscb');
-var wscb = new WebSockets_Callback();
+
+
+var options = {}
+
+var wscb = new WebSockets_Callback(options);
 
 wscb.on('hello from client :)', function(msg, respondWith){
     console.log('Client said:')
