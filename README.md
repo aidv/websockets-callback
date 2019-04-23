@@ -3,7 +3,7 @@ WebSocket messages with callbacks.
 There's a C++ port of this library called [WebSockets-Callback.CPP](https://github.com/aidv/WebSockets-Callback.CPP)
 
 ### Projects using websockets-callback
-- I2Catalyst - A browser based I2C packet analyzer using NodeJS
+- [I2Catalyst](https://github.com/aidv/i2catalyst) - A browser based I2C packet analyzer using NodeJS
 
 ### Coding fashion
 Firstly, it's important to understand that the file ```wscb.js``` inside the folder ```./lib``` is cross compatible with both NodeJS and the browser (in my case Chrome).
@@ -252,7 +252,7 @@ var wscb = new WebSockets_Callback({
     },
 
     onError: function(conn, error){
-        //This will 
+    
     },
 
     onListening: function(){
