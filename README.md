@@ -2,6 +2,9 @@
 WebSocket messages with callbacks.
 There's a C++ port of this library called [WebSockets-Callback.CPP](https://github.com/aidv/WebSockets-Callback.CPP)
 
+### Projects using websockets-callback
+- [I2Catalyst](https://github.com/aidv/i2catalyst) - A browser based I2C packet analyzer using NodeJS
+
 ### Coding fashion
 Firstly, it's important to understand that the file ```wscb.js``` inside the folder ```./lib``` is cross compatible with both NodeJS and the browser (in my case Chrome).
 
@@ -45,7 +48,7 @@ wscb.on('human',
 ```js
 wscb.send(
     {key: 'value', greeting: 'hello world!'},
-     function(response){
+    function(response){
         
     },
     function(response){
@@ -60,10 +63,28 @@ wscb.send(
 npm i wscb
 ```
 
+### Options:
+```js
+var options = {
+    verbose: false, //will log some messages to the console
+    asClient: false, //will setup WSCB as a client. Browser incompatible.
+    address: '127.0.0.1',
+    port: 8081,
+    onOpen: undefined,
+    onError: undefined,
+    onListening: undefined,
+    onUnexpectedMessage: undefined
+}
+```
+
 ### NodeJS sample code:
 ```js
 const WebSockets_Callback = require('wscb');
-var wscb = new WebSockets_Callback();
+
+
+var options = {}
+
+var wscb = new WebSockets_Callback(options);
 
 wscb.on('hello from client :)', function(msg, respondWith){
     console.log('Client said:')
@@ -231,7 +252,7 @@ var wscb = new WebSockets_Callback({
     },
 
     onError: function(conn, error){
-        //This will 
+    
     },
 
     onListening: function(){

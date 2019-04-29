@@ -1,6 +1,6 @@
 {
   "name": "wscb",
-  "version": "0.4.4",
+  "version": "0.4.6",
   "description": "WebSockets with message callbacks",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "url": "https://github.com/aidv/websockets-callback/issues"
   },
   "homepage": "https://github.com/aidv/websockets-callback#readme",
-  "devDependencies": {
+  "dependencies": {
     "ws": "6.1.4"
   }
 }
