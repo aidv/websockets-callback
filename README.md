@@ -4,6 +4,7 @@ There's a C++ port of this library called [WebSockets-Callback.CPP](https://gith
 
 ### Projects using websockets-callback
 - [I2Catalyst](https://github.com/aidv/i2catalyst) - A browser based I2C packet analyzer using NodeJS
+- [jobmatch-er](https://github.com/jobmatch-er/jobmatch.er-ws) - We don't know what this project does, but thanks for using WSCB
 
 ### Coding fashion
 Firstly, it's important to understand that the file ```wscb.js``` inside the folder ```./lib``` is cross compatible with both NodeJS and the browser (in my case Chrome).
