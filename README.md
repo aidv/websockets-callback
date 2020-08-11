@@ -2,6 +2,10 @@
 WebSocket messages with callbacks.
 There's a C++ port of this library called [WebSockets-Callback.CPP](https://github.com/aidv/WebSockets-Callback.CPP)
 
+## NEW IN 0.4.8
+
+Now supports Electron.
+
 ### Projects using websockets-callback
 - [I2Catalyst](https://github.com/aidv/i2catalyst) - A browser based I2C packet analyzer using NodeJS
 - [jobmatch-er](https://github.com/jobmatch-er/jobmatch.er-ws) - We don't know what this project does, but thanks for using WSCB
@@ -29,6 +33,26 @@ The progress handler is only called when the key ```progress``` exists in the re
 The ```progress``` value has a range of 0 to 100 where when at 100 (or non-existant) the expectation is deleted 
 
 (*1*) An "expectation" is a message that expects a response. If no response is received, the expectation will wait forever.
+
+
+#### Using in an Electron app
+
+In your `main.js` add the following:
+```
+    const WebSockets_Callback = require('wscb_electron');
+    var wscb = new WebSockets_Callback({asElectron: true})
+
+    //follow the rest of the instructions below
+```
+
+In your `index.html` add the following in the body :
+```
+    const WebSockets_Callback = require('../wscb_electron.js')
+    var wscb = new WebSockets_Callback({asElectron: true, asClient: true})
+
+    //follow the rest of the instructions below
+```
+
 
 
 
