@@ -1,6 +1,6 @@
 {
   "name": "wscb",
-  "version": "0.4.6",
+  "version": "0.4.8",
   "description": "WebSockets with message callbacks",
   "main": "index.js",
   "scripts": {
