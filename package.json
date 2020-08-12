@@ -1,6 +1,6 @@
 {
   "name": "wscb",
-  "version": "0.4.8",
+  "version": "0.4.9",
   "description": "WebSockets with message callbacks",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,6 @@
   ],
   "author": "Aid Vllasaliu",
   "browser": "browser.js",
-  
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/aidv/websockets-callback/issues"
