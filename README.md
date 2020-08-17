@@ -10,6 +10,36 @@ Now supports Electron.
 - [I2Catalyst](https://github.com/aidv/i2catalyst) - A browser based I2C packet analyzer using NodeJS
 - [jobmatch-er](https://github.com/jobmatch-er/jobmatch.er-ws) - We don't know what this project does, but thanks for using WSCB
 
+
+### Introduction
+
+WSCB's goal is to be the easiest solution to communicate between devices using Websockets.
+
+It contains two main functions: `on()` and `send()`.
+
+It has two types of messages: `Expectations` and `Unexpected`.
+
+Expectations are messages that trigger an `on()` binding on the receiving end of the pipe.
+
+Unexpected messages will trigger a commonly shared function.
+
+### Expectations
+
+An expectation callback has two arguments: `msg` and `respondWith()`.
+
+The `msg` object contains the data that the sender has sent, and `respondWith(obj)` is a function that takes an object as its argument.
+
+The function `respondWith()` is used to reply to the sender, usually used as an ACK signal.
+
+Example:
+
+```js
+wscb.on('human', function(msg, respondWith){
+    respondWith({human: 'homosapien'});
+});
+```
+
+
 ### Coding fashion
 Firstly, it's important to understand that the file ```wscb.js``` inside the folder ```./lib``` is cross compatible with both NodeJS and the browser (in my case Chrome).
 
@@ -38,19 +68,21 @@ The ```progress``` value has a range of 0 to 100 where when at 100 (or non-exist
 #### Using in an Electron app
 
 In your `main.js` add the following:
-```
-    const WebSockets_Callback = require('wscb_electron');
+```js
+    const WebSockets_Callback = require('wscb');
     var wscb = new WebSockets_Callback({asElectron: true})
 
     //follow the rest of the instructions below
 ```
 
-In your `index.html` add the following in the body :
-```
-    const WebSockets_Callback = require('../wscb_electron.js')
-    var wscb = new WebSockets_Callback({asElectron: true, asClient: true})
+In your `index.html` add the following in the body:
+```js
+    <script>
+        const WebSockets_Callback = require('wscb.js')
+        var wscb = new WebSockets_Callback({asElectron: true, asClient: true})
 
-    //follow the rest of the instructions below
+        //follow the rest of the instructions below
+    </script>
 ```
 
 
@@ -93,6 +125,8 @@ npm i wscb
 var options = {
     verbose: false, //will log some messages to the console
     asClient: false, //will setup WSCB as a client. Browser incompatible.
+    asElectron:  false, //will use Electron IPC instead of Websockets
+
     address: '127.0.0.1',
     port: 8081,
     onOpen: undefined,
