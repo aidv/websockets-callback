@@ -100,7 +100,7 @@ wscb.on('human',
 );
 ```
 
-#### Sending an expectaion
+#### Sending an expectation
 
 ```js
 wscb.send(
